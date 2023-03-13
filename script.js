@@ -1,16 +1,31 @@
-let gridColor = "black";
 // create initial grid upon loading
-createGrid(16, "black");
+createGrid(16, "BLACK");
 
-// change color setting
-const buttonBlack = document.querySelector("#black");
-const buttonRGB = document.querySelector("#rgb");
-buttonBlack.addEventListener("click", () => gridColor = "black");
-buttonRGB.addEventListener("click", () => gridColor = "rgb");
+// clear current grid and create new using entered size and selected color
+const create = document.querySelectorAll("button");
+for (let i = 0; i < create.length; i++) {
+    create[i].addEventListener("click", function() {
+        const error = document.querySelector(".error");
+        let userInputSize = document.querySelector("#grid-size").value;
 
-const create = document.querySelector("#create");
-create.addEventListener("click", clearThenCreateGrid);
+        let gridSize = parseInt(userInputSize);
+        if (gridSize < 1 || gridSize > 100 || userInputSize.trim() === "") {
+            error.textContent = "Please enter a number between 1 - 100!";
+            return;
+        } else {
+            error.textContent = "";
+        }
 
+        let gridColor = this.textContent;
+        
+        const grid = document.querySelector(".container");
+        while (grid.firstChild) {
+            grid.removeChild(grid.firstChild);
+        }
+
+        createGrid(gridSize, gridColor);
+    });
+}
 
 function createGrid(gridSize, color) {
     const grid = document.querySelector(".container");
@@ -19,56 +34,29 @@ function createGrid(gridSize, color) {
     grid.style.gridTemplateRows = `repeat(${gridSize}, ${cellProportion}fr)`;
     grid.style.gridTemplateColumns = `repeat(${gridSize}, ${cellProportion}fr)`;
 
-    if (color === "black") {
-        for (let i = 0; i < gridSize ** 2; i++) {
-            const cell = document.createElement("div");
-            cell.classList.add("cell-black");
-            grid.appendChild(cell);
-        }
-        allowColorBlack();
-    } else {
-        for (let i = 0; i < gridSize ** 2; i++) {
-            const cell = document.createElement("div");
-            cell.classList.add("cell-rgb");
-            grid.appendChild(cell);
-        }
-        allowColorRGB();
+    for (let i = 0; i < gridSize ** 2; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        grid.appendChild(cell);
     }
+
+    allowColorChangeOnMouseover(color);
 }
 
-function clearThenCreateGrid() {
-    const error = document.querySelector(".error");
-    let gridSize = parseInt(document.querySelector("#grid-size").value);
-    if (gridSize < 1 || gridSize > 100) {
-        error.textContent = "Please enter a number between 1 - 100!";
-        return;
-    } else {
-        error.textContent = "";
-    }
-    
-    const grid = document.querySelector(".container");
-    while (grid.firstChild) {
-        grid.removeChild(grid.firstChild);
-    }
-
-    createGrid(gridSize, gridColor);
-}
-
-function allowColorBlack() {
-    const cellsBlack = document.querySelectorAll(".cell-black");
-    for (let i = 0; i < cellsBlack.length; i++) {
-        cellsBlack[i].addEventListener("mouseover", () => cellsBlack[i].style.backgroundColor = "black");
-    }
-}
-
-function allowColorRGB() {
-    const cellsRGB = document.querySelectorAll(".cell-rgb");
-    for (let i = 0; i < cellsRGB.length; i++) {
-        cellsRGB[i].addEventListener("mouseover", function() {
-            let randomRed = Math.floor(Math.random() * 256);
-            let randomGreen = Math.floor(Math.random() * 256);
-            let randomBlue = Math.floor(Math.random() * 256);
-            this.style.backgroundColor = `rgb(${randomRed}, ${randomGreen}, ${randomBlue})`
-            });
+function allowColorChangeOnMouseover(color) {
+    const cells = document.querySelectorAll(".cell");
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].addEventListener("mouseover", function() {
+            if (color === "BLACK") {
+                this.style.backgroundColor = color;
+                this.style.borderColor = color;
+            } else {
+                let randomRed = Math.floor(Math.random() * 256);
+                let randomGreen = Math.floor(Math.random() * 256);
+                let randomBlue = Math.floor(Math.random() * 256);
+                this.style.backgroundColor = `rgb(${randomRed}, ${randomGreen}, ${randomBlue})`;
+                this.style.borderColor = `rgb(${randomRed}, ${randomGreen}, ${randomBlue})`;
+            }
+        });
     }
 }
