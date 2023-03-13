@@ -20,6 +20,11 @@ for (let i = 0; i < create.length; i++) {
     });
 }
 
+// autofill second dimensions box (read-only) with what is typed into first box
+const inputBox = document.querySelector("#grid-size");
+const echoBox = document.querySelector("#echo-size");
+inputBox.addEventListener("input", () => echoBox.value = inputBox.value);
+
 function checkValidSizeInput(gridSize) {
     return (gridSize >= 1 && gridSize <= 100) ? true : false;
 }
