@@ -5,26 +5,30 @@ createGrid(16, "BLACK");
 const create = document.querySelectorAll("button");
 for (let i = 0; i < create.length; i++) {
     create[i].addEventListener("click", function() {
-        const error = document.querySelector(".error");
-        let userInputSize = document.querySelector("#grid-size").value;
-
-        let gridSize = parseInt(userInputSize);
-        if (gridSize < 1 || gridSize > 100 || userInputSize.trim() === "") {
-            error.textContent = "Please enter a number between 1 - 100!";
-            return;
-        } else {
-            error.textContent = "";
-        }
-
+        let gridSize = parseInt(document.querySelector("#grid-size").value);
         let gridColor = this.textContent;
-        
-        const grid = document.querySelector(".container");
-        while (grid.firstChild) {
-            grid.removeChild(grid.firstChild);
-        }
 
-        createGrid(gridSize, gridColor);
+        const error = document.querySelector(".error");
+        let validSize = checkValidSizeInput(gridSize);
+        if (validSize) {
+            error.textContent = "";
+            clearGrid();
+            createGrid(gridSize, gridColor);
+        } else {
+            error.textContent = "Please enter a number between 1 - 100!";
+        }
     });
+}
+
+function checkValidSizeInput(gridSize) {
+    return (gridSize >= 1 && gridSize <= 100) ? true : false;
+}
+
+function clearGrid() {
+    const grid = document.querySelector(".container");
+    while (grid.firstChild) {
+        grid.removeChild(grid.firstChild);
+    } 
 }
 
 function createGrid(gridSize, color) {
