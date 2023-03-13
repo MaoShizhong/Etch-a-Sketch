@@ -19,12 +19,15 @@
                 <button id="rgb">RGB</button>
             </div>
             <div class="grid-size">
-                <label for="size">Grid size (max. 100):</label>
-                <input id="size" type="text" inputmode="numeric" min="1" max="100">
+                <label for="grid-size">Grid size (max. 100):</label>
+                <input id="grid-size" type="text" inputmode="numeric" min="1" max="100">
                 <span> x </span>
                 <input id="echo-size" readonly="true">
-                <button>Create</button>
+                <button id="create">Create</button>
             </div>
+        </div>
+        <div class="error-container">
+            <p class="error"></p>
         </div>
         <div class="container">
 
