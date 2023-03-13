@@ -2,6 +2,7 @@
 
 body {
     background-color: #a780c9;
+    color: #150025;
     font-family: 'Comfortaa', Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
@@ -19,7 +20,7 @@ h1 {
 }
 
 .options {
-    background-color: #8c66ad;
+    background-color: #926fb3;
     font-size: 1.3em;
     width: auto;
     max-width: 790px;
@@ -31,7 +32,8 @@ h1 {
 }
 
 button {
-    font-family: 'Comfortaa', Arial, Helvetica, sans-serif;
+    color: #150025;
+    font-family: 'Comfortaa'16, Arial, Helvetica, sans-serif;
     font-size: 0.6em;
     font-weight: 700;
     text-align: center;
@@ -55,8 +57,8 @@ input:focus {
 }
 
 #echo-size {
-    background-color: #704a92;
-    color: #3d3049;
+    background-color: #7d54a0;
+    color: #453a50;
 }
 
 .error-container {
@@ -65,8 +67,9 @@ input:focus {
 }
 
 .error {
-    color: red;
-    text-align: right;
+    color: #150025;
+    text-align: center;
+    font-weight: 700;
     margin: 5px 0;
     padding: 0;
     height: 1em;
